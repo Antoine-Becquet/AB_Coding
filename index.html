@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ABCoding - Solutions Numériques & Codage Auto</title>
+    <style>
+        :root {
+            --bg-color: #1a1a1a;
+            --card-bg: #262626;
+            --text-color: #ffffff;
+            --text-muted: #aaaaaa;
+            --accent-red: #b31010;
+            --accent-blue: #0066cc;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-color); line-height: 1.6; padding: 20px; }
+        header { text-align: center; padding: 40px 0; }
+        h1 { font-size: 2.5rem; letter-spacing: 2px; margin-bottom: 10px; }
+        h1 span.red { color: var(--accent-red); }
+        h1 span.white { color: var(--text-color); }
+        .subtitle { color: var(--text-muted); font-size: 1.1rem; max-width: 600px; margin: 0 auto 30px auto; }
+        
+        .main-container { display: flex; flex-direction: column; gap: 20px; max-width: 1100px; margin: 0 auto; }
+        @media (min-width: 768px) { .main-container { flex-direction: row; } }
+
+        .universe-card { flex: 1; background-color: var(--card-bg); border-radius: 12px; padding: 30px; border: 2px solid transparent; transition: all 0.3s ease; }
+        .auto-card:hover { border-color: var(--accent-red); transform: translateY(-5px); }
+        .it-card:hover { border-color: var(--accent-blue); transform: translateY(-5px); }
+        
+        .universe-card h2 { font-size: 1.8rem; margin-bottom: 20px; }
+        .auto-card h2 { color: var(--accent-red); }
+        .it-card h2 { color: var(--accent-blue); }
+
+        .service-list { list-style: none; }
+        .service-list li { background: rgba(255, 255, 255, 0.05); margin-bottom: 12px; padding: 15px; border-radius: 8px; border-left: 4px solid transparent; }
+        .auto-card .service-list li { border-left-color: var(--accent-red); }
+        .it-card .service-list li { border-left-color: var(--accent-blue); }
+        .service-list h3 { font-size: 1.1rem; margin-bottom: 5px; }
+        .service-list p { font-size: 0.9rem; color: var(--text-muted); }
+
+        .cta-container { text-align: center; margin-top: 50px; padding-bottom: 40px; }
+        .btn-contact { display: inline-block; background-color: #ffffff; color: #000000; text-decoration: none; padding: 15px 40px; font-weight: bold; border-radius: 50px; font-size: 1.1rem; transition: all 0.3s ease; }
+        .btn-contact:hover { background-color: #dddddd; transform: scale(1.05); }
+        footer { text-align: center; color: var(--text-muted); font-size: 0.8rem; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><span class="red">AB</span><span class="white">CODING</span></h1>
+        <p class="subtitle">L'expertise numérique au service de votre quotidien et de votre véhicule dans le Cotentin.</p>
+    </header>
+
+    <div class="main-container" id="app-services"></div>
+
+    <div class="cta-container">
+        <a href="mailto:contact.abcoding@gmail.com" class="btn-contact">Prendre RDV / Demander un devis</a>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 ABCoding - Cherbourg-en-Cotentin. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // 1. Tes données structurées proprement dans un tableau d'objets (facile à mettre à jour)
+        const servicesData = [
+            {
+                id: "auto",
+                title: "🚗 Solutions VAG / Audi",
+                class: "auto-card",
+                items: [
+                    { title: "Activation d'options cachées", desc: "Affichage Sport, balayage des aiguilles, chronomètre de tour, personnalisation des éclairages." },
+                    { title: "Rétrofit & Multimédia", desc: "Installation de Virtual Cockpit, activation CarPlay / Android Auto d'origine (systèmes MIB)." },
+                    { title: "Déblocage & Diag", desc: "Suppression de la protection des composants (CP) et adaptation d'antidémarrage via accès en ligne officiel GEKO / ODIS." }
+                ]
+            },
+            {
+                id: "it",
+                title: "🖥️ Prestations Informatiques",
+                class: "it-card",
+                items: [
+                    { title: "Diagnostic & Optimisation", desc: "Recherche de pannes, suppression de virus et réinstallation complète de Windows (10/11) pour booster votre PC." },
+                    { title: "Réparation & Évolution", desc: "Remplacement d'écrans de PC portables, batteries, et upgrade vers des disques SSD ultra-rapides." },
+                    { title: "Reprise & Reconditionnement", desc: "Rachat de votre ancien matériel d'occasion (déduction sur facture) et vente de PC reconditionnés prêts à l'emploi." }
+                ]
+            }
+        ];
+
+        // 2. Composant de rendu (Fonction fléchée ES6)
+        const renderServices = (data) => {
+            const container = document.getElementById('app-services');
+            
+            // Map à travers les univers et génère le HTML
+            container.innerHTML = data.map(universe => `
+                <section class="universe-card ${universe.class}">
+                    <h2>${universe.title}</h2>
+                    <ul class="service-list">
+                        ${universe.items.map(item => `
+                            <li>
+                                <h3>${item.title}</h3>
+                                <p>${item.desc}</p>
+                            </li>
+                        `).join('')}
+                    </ul>
+                </section>
+            `).join('');
+        };
+
+        // 3. Initialisation au chargement du DOM
+        document.addEventListener('DOMContentLoaded', () => {
+            renderServices(servicesData);
+        });
+    </script>
+</body>
+</html>
